@@ -3,6 +3,7 @@
 from tango import DevState, AttributeProxy
 from tango.server import Device, device_property
 
+
 class ValveDetector(Device):
     # Properties representing two ports of an DAQ-Device
     Input1 = device_property(
@@ -24,12 +25,12 @@ class ValveDetector(Device):
     )
 
     def init_device(self):
-        #set up connection to a running device server 
+        # set up connection to a running device server 
         Device.init_device(self)
         self.set_state(DevState.INIT)
         self.info_stream('Initialization of valve device.')
         try:
-            #open a attribute proxy. That means we are accessing a specific device server attribute of an running device. 
+            # open a attribute proxy. That means we are accessing a specific device server attribute of an running device. 
             self.input1 = AttributeProxy(self.Input1)
             self.input2 = AttributeProxy(self.Input2)
             self.set_status('Connected to device: {:s}'.format(self.Input1[:-3]))
@@ -43,7 +44,7 @@ class ValveDetector(Device):
         self.set_state(DevState.RUNNING)
         self.set_status('Reading data of valve.')
         
-        #read out value of the attribute proxy
+        # read out value of the attribute proxy
         val1 = self.input1.read().value
         val2 = self.input2.read().value
 
